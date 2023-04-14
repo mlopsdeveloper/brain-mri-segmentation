@@ -3,12 +3,8 @@ import subprocess
  
 # Using system() method to
 # execute shell commands
-p1 = subprocess.Popen('python -m venv ../.venv/brain-mri', shell=True)
+p1 = subprocess.Popen('/bin/sh startup-hook.sh', shell=True)
 p1.wait()
-p2 = subprocess.Popen('source ../.venv/brain-mri/bin/activate', shell=True)
-p2.wait()
-p3 = subprocess.Popen('/bin/sh startup-hook.sh', shell=True)
-p3.wait()
 
 import os
 
@@ -42,7 +38,8 @@ output_dim = 256
 output_ch = 1
 
 learning_rate = 0.01
-epochs = 25
+NUM_EPOCHS = int(os.getenv("EPOCHS", 25))
+epochs = NUM_EPOCHS
 seed = 1
 
 # --------------------------------------------------------------
