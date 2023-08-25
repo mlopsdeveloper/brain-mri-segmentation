@@ -1,10 +1,10 @@
 # Importing required module
-import subprocess
- 
+# Execute below only if environment does not has dependent libraries
+#import subprocess
 # Using system() method to
 # execute shell commands
-p1 = subprocess.Popen('/bin/sh startup-hook.sh', shell=True)
-p1.wait()
+# p1 = subprocess.Popen('/bin/sh startup-hook.sh', shell=True)
+# p1.wait()
 
 import os
 
@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 
 # Defining Parameters
 
-data_dir = "../data/lgg-mri-segmentation/kaggle_3m/" # change the path accordingly
+
 
 train_fraction = 0.8
 validation_fraction = 0.2
@@ -38,9 +38,19 @@ output_dim = 256
 output_ch = 1
 
 learning_rate = 0.01
-NUM_EPOCHS = int(os.getenv("EPOCHS", 25))
+NUM_EPOCHS = int(os.getenv("NUM_EPOCHS", 2))
 epochs = NUM_EPOCHS
 seed = 1
+
+DATA_PATH = os.getenv("DATA_PATH")
+
+if(not DATA_PATH):
+    print("ERROR: DATA_PATH environment variable not set to fetch data...")
+    print("Program expects these environment variables:")
+    print("1. DATA_PATH (mandatory)")
+    print("2. NUM_EPOCHS (default: 2)")
+else:
+    data_dir = DATA_PATH # change the path accordingly
 
 # --------------------------------------------------------------
 
